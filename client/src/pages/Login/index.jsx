@@ -43,9 +43,10 @@ const Login = () => {
       )
       console.log('Response Data: ', response?.data)
       const accessToken = response?.data?.accessToken
+      const username = response?.data?.username
       const roles = response?.data?.roles
 
-      setAuth({ roles, accessToken })
+      setAuth({ username, roles, accessToken })
       setUser('')
       setPwd('')
       navigate(from, { replace: true })

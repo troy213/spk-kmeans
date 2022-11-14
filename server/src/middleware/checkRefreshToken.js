@@ -20,6 +20,7 @@ const checkToken = (req, res, next) => {
 
     res.locals.id = result[0].id
     res.locals.roles = result[0].roles
+    res.locals.username = result[0].username
     res.locals.accessToken = generateAccessToken(result[0].id)
     res.locals.refreshToken = generateRefreshToken(result[0].id)
     next()

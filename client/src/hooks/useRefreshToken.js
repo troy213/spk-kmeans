@@ -20,6 +20,7 @@ const useRefreshToken = () => {
       console.log('New AccessToken: ', response?.data?.accessToken)
       return {
         ...prevState,
+        username: response.data.username,
         roles: response.data.roles,
         accessToken: response.data.accessToken,
       }

@@ -107,12 +107,12 @@ app.post('/api/protected', async (req, res) => {
 })
 
 app.post('/api/refresh_token', checkToken, (req, res) => {
-  const { id, roles, accessToken, refreshToken } = res.locals
+  const { id, username, roles, accessToken, refreshToken } = res.locals
   const sql = 'UPDATE user SET refresh_token=? WHERE id=?'
   db.query(sql, [refreshToken, id], (err, result) => {
     if (err) return res.status(500).json({ success: false, message: err })
     sendRefreshToken(res, refreshToken)
-    return res.send({ accessToken, roles })
+    return res.send({ accessToken, username, roles })
   })
 })
 
