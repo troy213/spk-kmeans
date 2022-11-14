@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Info } from '@material-ui/icons'
+import { useNavigate } from 'react-router-dom'
+import cogoToast from 'cogo-toast'
 import axios from '../../api/axios'
+import './index.scss'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9- ]{3,23}$/
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{5,24}$/
 const REGISTER_URL = '/api/register'
 
 const Register = () => {
+  const navigate = useNavigate()
+
   const userRef = useRef()
-  const errRef = useRef()
 
   const [user, setUser] = useState('')
   const [validName, setValidName] = useState(false)
@@ -22,7 +26,6 @@ const Register = () => {
   const [validMatch, setValidMatch] = useState(false)
   const [matchFocus, setMatchFocus] = useState(false)
 
-  const [errMsg, setErrMsg] = useState('')
   const [success, setSuccess] = useState(false)
 
   useEffect(() => {
@@ -41,17 +44,13 @@ const Register = () => {
     setValidMatch(match)
   }, [pwd, matchPwd])
 
-  useEffect(() => {
-    setErrMsg('')
-  }, [user, pwd, matchPwd])
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     // if button enabled with JS hack
     const v1 = USER_REGEX.test(user)
     const v2 = PWD_REGEX.test(pwd)
     if (!v1 || !v2) {
-      setErrMsg('Invalid Entry')
+      cogoToast.error('Invalid Entry')
       return
     }
 
@@ -68,141 +67,114 @@ const Register = () => {
       console.log('Response AccessToken: ', response.accessToken)
       console.log('Response: ', response)
       setSuccess(true)
+      cogoToast.success('Registration Success!')
       // clear input fields
     } catch (err) {
       console.log(err)
       if (!err?.response) {
-        setErrMsg('No Server Response')
-      } else if (err.response.status === 409) {
-        setErrMsg('Username Taken')
+        cogoToast.error('No Server Response')
       } else {
-        setErrMsg('Registration Failed')
+        cogoToast.error(err.response?.data?.message)
       }
-      errRef.current.focus()
     }
   }
 
+  useEffect(() => {
+    if (success) {
+      navigate('/login')
+    }
+  }, [success])
+
   return (
-    <>
-      {success ? (
-        <section>
-          <h1>Success!</h1>
-          <p>
-            <Link to='/login'>Sign In</Link>
-          </p>
-        </section>
-      ) : (
-        <section className='register'>
+    <section className='register'>
+      <h1 className='register-title'>Register New Staff</h1>
+      <form onSubmit={handleSubmit} className='register-form'>
+        <div className='register-form-wrapper'>
+          <label htmlFor='username'>Username:</label>
+          <input
+            type='text'
+            id='username'
+            ref={userRef}
+            autoComplete='off'
+            onChange={(e) => setUser(e.target.value)}
+            required
+            aria-invalid={validName ? 'false' : 'true'}
+            aria-describedby='uidnote'
+            onFocus={() => setUserFocus(true)}
+            onBlur={() => setUserFocus(false)}
+            className={user && !validName ? 'input-error' : ''}
+          />
           <p
-            ref={errRef}
-            className={errMsg ? 'errmsg' : 'offscreen'}
-            aria-live='assertive'
+            id='uidnote'
+            className={
+              userFocus && user && !validName ? 'instructions' : 'offscreen'
+            }
           >
-            {errMsg}
+            <Info className='info-icon' />
+            4 to 24 characters. <br />
+            Must begin with a letter. Letters, numbers, underscores, hyphens
+            allowed.
           </p>
-          <h1>Register</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor='username'>
-              Username:
-              <span className={validName ? 'valid' : 'hide'}>V</span>
-              <span className={validName || !user ? 'hide' : 'invalid'}>X</span>
-            </label>
-            <input
-              type='text'
-              id='username'
-              ref={userRef}
-              autoComplete='off'
-              onChange={(e) => setUser(e.target.value)}
-              required
-              aria-invalid={validName ? 'false' : 'true'}
-              aria-describedby='uidnote'
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
-            <p
-              id='uidnote'
-              className={
-                userFocus && user && !validName ? 'instructions' : 'offscreen'
-              }
-            >
-              4 to 24 characters. <br />
-              Must begin with a letter. Letters, numbers, underscores, hyphens
-              allowed.
-            </p>
 
-            <label htmlFor='password'>
-              Password:
-              <span className={validPwd ? 'valid' : 'hide'}>V</span>
-              <span className={validPwd || !pwd ? 'hide' : 'invalid'}>X</span>
-            </label>
-            <input
-              type='password'
-              id='password'
-              onChange={(e) => setPwd(e.target.value)}
-              required
-              aria-invalid={validPwd ? 'false' : 'true'}
-              aria-describedby='pwdnote'
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            />
-            <p
-              id='pwdnote'
-              className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}
-            >
-              8 to 24 characters. <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character. <br />
-              Allowed special characters:{' '}
-              <span aria-label='exclamation mark'>!</span>
-              <span aria-label='at symbol'>@</span>
-              <span aria-label='hashtag'>#</span>
-              <span aria-label='dollar sign'>$</span>
-              <span aria-label='percent'>%</span>
-            </p>
-
-            <label htmlFor='confirm_pwd'>
-              Confirm Password:
-              <span className={validMatch && matchPwd ? 'valid' : 'hide'}>
-                V
-              </span>
-              <span className={validMatch || !matchPwd ? 'hide' : 'invalid'}>
-                X
-              </span>
-            </label>
-            <input
-              type='password'
-              id='confirm_pwd'
-              onChange={(e) => setMatchPwd(e.target.value)}
-              required
-              aria-invalid={validMatch ? 'false' : 'true'}
-              aria-describedby='confirmnote'
-              onFocus={() => setMatchFocus(true)}
-              onBlur={() => setMatchFocus(false)}
-            />
-            <p
-              id='confirmnote'
-              className={
-                matchFocus && !validMatch ? 'instructions' : 'offscreen'
-              }
-            >
-              Must match the first password input field
-            </p>
-
-            <button
-              disabled={!validName || !validPwd || !validMatch ? true : false}
-            >
-              Sign Up
-            </button>
-          </form>
-          <p>
-            Already registered? <br />
-            <span className='line'>
-              <a href='#'>Sign In</a>
-            </span>
+          <label htmlFor='password'>Password:</label>
+          <input
+            type='password'
+            id='password'
+            onChange={(e) => setPwd(e.target.value)}
+            required
+            aria-invalid={validPwd ? 'false' : 'true'}
+            aria-describedby='pwdnote'
+            onFocus={() => setPwdFocus(true)}
+            onBlur={() => setPwdFocus(false)}
+            className={pwd && !validPwd ? 'input-error' : ''}
+          />
+          <p
+            id='pwdnote'
+            className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}
+          >
+            <Info className='info-icon' />
+            5 to 24 characters. <br />
+            Must include uppercase and lowercase letters, a number and a special
+            character. <br />
+            Allowed special characters:{' '}
+            <span aria-label='exclamation mark'>!</span>
+            <span aria-label='at symbol'>@</span>
+            <span aria-label='hashtag'>#</span>
+            <span aria-label='dollar sign'>$</span>
+            <span aria-label='percent'>%</span>
           </p>
-        </section>
-      )}
-    </>
+
+          <label htmlFor='confirm_pwd'>Confirm Password:</label>
+          <input
+            type='password'
+            id='confirm_pwd'
+            onChange={(e) => setMatchPwd(e.target.value)}
+            required
+            aria-invalid={validMatch ? 'false' : 'true'}
+            aria-describedby='confirmnote'
+            onFocus={() => setMatchFocus(true)}
+            onBlur={() => setMatchFocus(false)}
+            className={matchPwd && !validMatch ? 'input-error' : ''}
+          />
+          <p
+            id='confirmnote'
+            className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}
+          >
+            <Info className='info-icon' />
+            Must match the first password input field
+          </p>
+        </div>
+
+        <button
+          disabled={!validName || !validPwd || !validMatch ? true : false}
+          className={`btn btn-primary${
+            !validName || !validPwd || !validMatch ? ' disabled' : ''
+          }`}
+        >
+          Sign Up
+        </button>
+      </form>
+    </section>
   )
 }
 

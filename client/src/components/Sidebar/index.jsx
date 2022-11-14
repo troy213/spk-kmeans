@@ -62,7 +62,6 @@ const SIDEBAR_NAVIGATION = [
 const Sidebar = () => {
   const location = useLocation()
 
-  console.log({ location })
   return (
     <aside className='sidebar'>
       <div className='sidebar-wrapper'>

@@ -7,7 +7,7 @@
   position: sticky;
   color: white;
   top: 0;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-wrapper {
@@ -26,4 +26,10 @@
 .navbar-title {
   font-size: 1.5rem;
   font-weight: 700;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.325rem;
 }

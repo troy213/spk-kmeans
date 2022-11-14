@@ -26,22 +26,36 @@ body {
   border: none;
   border-radius: 8px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .btn-primary {
   background-color: $primary-color;
   color: whitesmoke;
+
+  &:hover {
+    background-color: $primary-color-light;
+  }
 }
 
 .btn-light {
   background-color: $light;
   color: $dark;
+
+  &:hover {
+    background-color: #ddd;
+  }
 }
 
 .btn-outline-light {
   border: 2px solid $light;
   background-color: $primary-color;
   color: $light;
+}
+
+.btn.disabled {
+  background-color: #777;
+  cursor: default;
 }
 
 .error-message {

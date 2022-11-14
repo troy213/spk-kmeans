@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { PermIdentity } from '@material-ui/icons'
 import useLogout from '../../hooks/useLogout'
 import useAuth from '../../hooks/useAuth'
 import './index.scss'
@@ -21,7 +22,10 @@ const Navbar = () => {
           <span className='navbar-title'>Logo</span>
         </div>
         <div className='navbar-right'>
-          <span className='navbar-user'>{auth?.username}</span>
+          <span className='navbar-user'>
+            <PermIdentity />
+            {auth?.username}
+          </span>
           <button className='btn btn-outline-light' onClick={signOut}>
             Logout
           </button>

@@ -1,17 +1,8 @@
 import React from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import useLogout from '../../hooks/useLogout'
+import { Link } from 'react-router-dom'
 import './index.scss'
 
 const Home = () => {
-  const navigate = useNavigate()
-  const logout = useLogout()
-
-  const signOut = async () => {
-    await logout()
-    navigate('/login')
-  }
-
   return (
     <section className='home'>
       <h1>Home</h1>
@@ -22,12 +13,7 @@ const Home = () => {
       <br />
       <Link to='/staff'>Go to the Staff's page</Link>
       <br />
-      <Link to='/lounge'>Go to the Lounge</Link>
-      <br />
       <Link to='/linkpage'>Go to the link page</Link>
-      <div className='flexGrow'>
-        <button onClick={signOut}>Sign Out</button>
-      </div>
     </section>
   )
 }

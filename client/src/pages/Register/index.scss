@@ -1,0 +1,67 @@
+@import '../../variables';
+
+.register {
+  flex: 4;
+  padding: 2rem;
+  color: $dark;
+}
+
+.register-title {
+  color: $primary-color-dark;
+}
+
+.register-form {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+
+  & .btn {
+    margin-top: 1rem;
+  }
+}
+
+.register-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  & label {
+    color: #555;
+    font-size: 0.825rem;
+    margin-bottom: 0.5rem;
+
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+  }
+
+  & input {
+    height: 1.75rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+
+.input-error {
+  border: 1px solid red !important;
+
+  &:focus {
+    outline: 1px solid red;
+  }
+}
+
+.offscreen {
+  display: none;
+}
+
+.instructions {
+  color: #777;
+  font-size: 0.825rem;
+  margin-top: 0.5rem;
+}
+
+.info-icon {
+  font-size: 0.75rem !important;
+  margin-right: 0.5rem;
+  color: $primary-color-light;
+}
