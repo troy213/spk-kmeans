@@ -26,12 +26,17 @@
 
 .sidebar-list {
   list-style-type: none;
-  padding: 0.5rem;
+  padding: 0.5rem 0.3rem;
 }
 
 .sidebar-list-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.25rem 0;
+  padding: 0.25rem;
+
+  &.active {
+    background-color: $primary-color-light;
+    border-radius: 0.5rem;
+  }
 }

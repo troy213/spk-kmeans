@@ -7,7 +7,7 @@ import {
   Unauthorized,
   NotFound,
   Editor,
-  Admin,
+  Staff,
   Lounge,
   Home,
 } from './pages'
@@ -41,7 +41,7 @@ const App = () => {
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-              <Route path='admin' element={<Admin />} />
+              <Route path='staff' element={<Staff />} />
               <Route path='register' element={<Register />} />
             </Route>
 
