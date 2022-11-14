@@ -95,7 +95,7 @@ const Login = () => {
             required
           />
 
-          <button type='submit' className='btn btn-primary'>
+          <button type='submit' className='btn btn-primary p-3'>
             Sign In
           </button>
         </form>

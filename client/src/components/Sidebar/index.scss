@@ -1,0 +1,37 @@
+@import '../../variables';
+
+.sidebar {
+  flex: 1;
+  background-color: $primary-color;
+  height: calc(100vh - 67px);
+  position: sticky;
+  top: 67px;
+  overflow-y: auto;
+  min-width: 250px;
+}
+
+.sidebar-wrapper {
+  padding: 2rem;
+  color: $light;
+}
+
+.sidebar-menu {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-title {
+  font-size: 0.825rem;
+  color: #eeeeff;
+}
+
+.sidebar-list {
+  list-style-type: none;
+  padding: 0.5rem;
+}
+
+.sidebar-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}

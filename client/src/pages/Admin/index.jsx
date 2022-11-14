@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Users } from '../'
+import './index.scss'
 
 const Admin = () => {
   return (

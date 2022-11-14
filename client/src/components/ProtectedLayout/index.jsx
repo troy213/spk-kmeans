@@ -5,8 +5,10 @@ const ProtectedLayout = () => {
   return (
     <div className='protected-layout'>
       <Navbar />
-      <Sidebar />
-      <Outlet />
+      <div className='container'>
+        <Sidebar />
+        <Outlet />
+      </div>
     </div>
   )
 }

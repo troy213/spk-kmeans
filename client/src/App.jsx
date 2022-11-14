@@ -17,7 +17,7 @@ import './App.scss'
 
 const ROLES = {
   Admin: 1,
-  Editor: 2,
+  Staff: 2,
 }
 
 const App = () => {
@@ -33,7 +33,7 @@ const App = () => {
           <Route path='/' element={<ProtectedLayout />}>
             <Route
               element={
-                <RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor]} />
+                <RequireAuth allowedRoles={[ROLES.Admin, ROLES.Staff]} />
               }
             >
               <Route path='/' element={<Home />} />
@@ -45,7 +45,7 @@ const App = () => {
               <Route path='register' element={<Register />} />
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Staff]} />}>
               <Route path='editor' element={<Editor />} />
             </Route>
           </Route>

@@ -1,0 +1,29 @@
+@import '../../variables';
+
+.navbar {
+  width: 100%;
+  background-color: $primary-color;
+  z-index: 999;
+  position: sticky;
+  color: white;
+  top: 0;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-wrapper {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
