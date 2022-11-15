@@ -26,7 +26,7 @@
   flex-direction: column;
   & label {
     color: #555;
-    font-size: 0.825rem;
+    font-size: 0.875rem;
     margin-bottom: 0.5rem;
 
     &:not(:first-child) {
@@ -40,6 +40,10 @@
     border-radius: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
+}
+
+.label-input-error {
+  color: red !important;
 }
 
 .input-error {
@@ -56,7 +60,7 @@
 
 .instructions {
   color: #777;
-  font-size: 0.825rem;
+  font-size: 0.875rem;
   margin-top: 0.5rem;
 }
 

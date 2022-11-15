@@ -22,7 +22,7 @@ const SIDEBAR_NAVIGATION = [
       },
       {
         icon: <InputOutlined className='sidebar-icon' />,
-        link: '/form',
+        link: '/form-data',
         name: 'Input Data',
       },
       {
