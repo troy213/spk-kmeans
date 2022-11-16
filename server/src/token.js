@@ -17,6 +17,7 @@ const sendAccessToken = (req, res, accessToken) => {
     accessToken,
     username: req.body.username,
     roles: res.locals.roles,
+    id: res.locals.id,
   })
 }
 

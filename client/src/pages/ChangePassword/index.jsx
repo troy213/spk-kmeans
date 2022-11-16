@@ -113,6 +113,7 @@ const ChangePassword = () => {
           className={`btn btn-primary${
             !pwd || !validPwd || !validMatch ? ' disabled' : ''
           }`}
+          type='submit'
         >
           Sign Up
         </button>

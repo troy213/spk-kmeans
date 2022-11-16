@@ -5,7 +5,7 @@ import cogoToast from 'cogo-toast'
 import axios from '../../api/axios'
 import './index.scss'
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9- ]{3,23}$/
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-]{3,23}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{5,24}$/
 const REGISTER_URL = '/api/register'
 
@@ -15,18 +15,18 @@ const Register = () => {
   const userRef = useRef()
 
   const [user, setUser] = useState('')
-  const [validName, setValidName] = useState(false)
-  const [userFocus, setUserFocus] = useState(false)
+  const [isValidName, setIsValidName] = useState(false)
+  const [isUserFocus, setIsUserFocus] = useState(false)
 
   const [pwd, setPwd] = useState('')
-  const [validPwd, setValidPwd] = useState(false)
-  const [pwdFocus, setPwdFocus] = useState(false)
+  const [isValidPwd, setIsValidPwd] = useState(false)
+  const [isPwdFocus, setIsPwdFocus] = useState(false)
 
   const [matchPwd, setMatchPwd] = useState('')
-  const [validMatch, setValidMatch] = useState(false)
-  const [matchFocus, setMatchFocus] = useState(false)
+  const [isValidMatch, setIsValidMatch] = useState(false)
+  const [isMatchFocus, setIsMatchFocus] = useState(false)
 
-  const [success, setSuccess] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   useEffect(() => {
     userRef.current.focus()
@@ -34,14 +34,14 @@ const Register = () => {
 
   useEffect(() => {
     const result = USER_REGEX.test(user)
-    setValidName(result)
+    setIsValidName(result)
   }, [user])
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd)
-    setValidPwd(result)
+    setIsValidPwd(result)
     const match = pwd === matchPwd
-    setValidMatch(match)
+    setIsValidMatch(match)
   }, [pwd, matchPwd])
 
   const handleSubmit = async (e) => {
@@ -63,14 +63,10 @@ const Register = () => {
           withCredentials: true,
         }
       )
-      console.log('Response Data: ', response.data)
-      console.log('Response AccessToken: ', response.accessToken)
-      console.log('Response: ', response)
-      setSuccess(true)
+      setIsSuccess(true)
       cogoToast.success('Registration Success!')
       // clear input fields
     } catch (err) {
-      console.log(err)
       if (!err?.response) {
         cogoToast.error('No Server Response')
       } else {
@@ -80,17 +76,17 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (success) {
+    if (isSuccess) {
       navigate('/login')
     }
-  }, [success])
+  }, [isSuccess])
 
   return (
     <section className='register'>
       <h1 className='register-title'>Register New Staff</h1>
       <form onSubmit={handleSubmit} className='register-form'>
         <div className='register-form-wrapper'>
-          <label htmlFor='username'>Username:</label>
+          <label htmlFor='username'>Username</label>
           <input
             type='text'
             id='username'
@@ -98,16 +94,16 @@ const Register = () => {
             autoComplete='off'
             onChange={(e) => setUser(e.target.value)}
             required
-            aria-invalid={validName ? 'false' : 'true'}
+            aria-invalid={isValidName ? 'false' : 'true'}
             aria-describedby='uidnote'
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)}
-            className={user && !validName ? 'input-error' : ''}
+            onFocus={() => setIsUserFocus(true)}
+            onBlur={() => setIsUserFocus(false)}
+            className={user && !isValidName ? 'input-error' : ''}
           />
           <p
             id='uidnote'
             className={
-              userFocus && user && !validName ? 'instructions' : 'offscreen'
+              isUserFocus && user && !isValidName ? 'instructions' : 'offscreen'
             }
           >
             <Info className='info-icon' />
@@ -116,21 +112,21 @@ const Register = () => {
             allowed.
           </p>
 
-          <label htmlFor='password'>Password:</label>
+          <label htmlFor='password'>Password</label>
           <input
             type='password'
             id='password'
             onChange={(e) => setPwd(e.target.value)}
             required
-            aria-invalid={validPwd ? 'false' : 'true'}
+            aria-invalid={isValidPwd ? 'false' : 'true'}
             aria-describedby='pwdnote'
-            onFocus={() => setPwdFocus(true)}
-            onBlur={() => setPwdFocus(false)}
-            className={pwd && !validPwd ? 'input-error' : ''}
+            onFocus={() => setIsPwdFocus(true)}
+            onBlur={() => setIsPwdFocus(false)}
+            className={pwd && !isValidPwd ? 'input-error' : ''}
           />
           <p
             id='pwdnote'
-            className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}
+            className={isPwdFocus && !isValidPwd ? 'instructions' : 'offscreen'}
           >
             <Info className='info-icon' />
             5 to 24 characters. <br />
@@ -144,21 +140,23 @@ const Register = () => {
             <span aria-label='percent'>%</span>
           </p>
 
-          <label htmlFor='confirm_pwd'>Confirm Password:</label>
+          <label htmlFor='confirm_pwd'>Confirm Password</label>
           <input
             type='password'
             id='confirm_pwd'
             onChange={(e) => setMatchPwd(e.target.value)}
             required
-            aria-invalid={validMatch ? 'false' : 'true'}
+            aria-invalid={isValidMatch ? 'false' : 'true'}
             aria-describedby='confirmnote'
-            onFocus={() => setMatchFocus(true)}
-            onBlur={() => setMatchFocus(false)}
-            className={matchPwd && !validMatch ? 'input-error' : ''}
+            onFocus={() => setIsMatchFocus(true)}
+            onBlur={() => setIsMatchFocus(false)}
+            className={matchPwd && !isValidMatch ? 'input-error' : ''}
           />
           <p
             id='confirmnote'
-            className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}
+            className={
+              isMatchFocus && !isValidMatch ? 'instructions' : 'offscreen'
+            }
           >
             <Info className='info-icon' />
             Must match the first password input field
@@ -166,10 +164,11 @@ const Register = () => {
         </div>
 
         <button
-          disabled={!validName || !validPwd || !validMatch ? true : false}
+          disabled={!isValidName || !isValidPwd || !isValidMatch ? true : false}
           className={`btn btn-primary${
-            !validName || !validPwd || !validMatch ? ' disabled' : ''
+            !isValidName || !isValidPwd || !isValidMatch ? ' disabled' : ''
           }`}
+          type='submit'
         >
           Sign Up
         </button>

@@ -8,6 +8,7 @@ import Unauthorized from './Unauthorized'
 import Users from './Users'
 import FormData from './FormData'
 import ChangePassword from './ChangePassword'
+import UserDetail from './UserDetail'
 
 export {
   Register,
@@ -20,4 +21,5 @@ export {
   Users,
   FormData,
   ChangePassword,
+  UserDetail,
 }

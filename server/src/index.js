@@ -14,6 +14,9 @@ const signUp = require('./middleware/signUp')
 const checkToken = require('./middleware/checkRefreshToken')
 const verifyJWT = require('./middleware/verifyJWT')
 const db = require('./config/db_config')
+
+const userRouter = require('./router/user_router')
+
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -86,7 +89,12 @@ app.post('/api/login', signIn, async (req, res) => {
   }
 })
 
-app.post('/api/logout', (_req, res) => {
+app.post('/api/logout', (req, res) => {
+  const { id } = req.body
+  const sql = 'UPDATE user SET refresh_token=null WHERE id=?'
+  db.query(sql, id, (err, result) => {
+    if (err) return res.status(500).json({ success: false, message: err })
+  })
   res.clearCookie('refreshtoken', { path: '/api/refresh_token' })
   return res.send({ message: 'Logged out' })
 })
@@ -112,19 +120,14 @@ app.post('/api/refresh_token', checkToken, (req, res) => {
   db.query(sql, [refreshToken, id], (err, result) => {
     if (err) return res.status(500).json({ success: false, message: err })
     sendRefreshToken(res, refreshToken)
-    return res.send({ accessToken, username, roles })
+    return res.send({ id, accessToken, username, roles })
   })
 })
 
+// put all yours protected route under line 121
 app.use(verifyJWT)
 
-app.get('/api/users', (req, res) => {
-  const sql = 'SELECT * FROM user'
-  db.query(sql, (err, result) => {
-    if (err) return res.status(500).json({ success: false, message: err })
-    return res.status(200).json({ success: true, data: result })
-  })
-})
+app.use('/api/users', userRouter)
 
 app.get('*', (req, res) => {
   res.status(404).json({ success: false, message: '404 Not Found' })

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import cogoToast from 'cogo-toast'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import useAuth from '../../hooks/useAuth'
+import { Spinner } from '../../components'
 import './index.scss'
 
 const Users = () => {
   const [users, setUsers] = useState()
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSuccess, setIsSuccess] = useState(false)
+
+  const { auth } = useAuth()
   const axiosPrivate = useAxiosPrivate()
   const navigate = useNavigate()
   const location = useLocation()
@@ -19,8 +26,8 @@ const Users = () => {
         const response = await axiosPrivate.get('/api/users', {
           signal: controller.signal,
         })
-        console.log(response.data)
         isMounted && setUsers(response.data)
+        setIsLoading(false)
       } catch (err) {
         console.error('Users Error: ', err)
         navigate('/login', { state: { from: location }, replace: true })
@@ -35,6 +42,34 @@ const Users = () => {
       controller.abort()
     }
   }, [])
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(0)
+    }
+  }, [isSuccess])
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axiosPrivate.delete(`/api/users/${id}`)
+      cogoToast.success('Delete Success!')
+      setIsSuccess(true)
+    } catch (err) {
+      setIsSuccess(false)
+      if (!err?.response) {
+        cogoToast.error('No Server Response')
+      } else {
+        cogoToast.error(err.response?.data?.message)
+      }
+    }
+  }
+
+  if (isLoading)
+    return (
+      <div className='spinner-container'>
+        <Spinner />
+      </div>
+    )
 
   return (
     <article className='users'>
@@ -59,8 +94,17 @@ const Users = () => {
                 </td>
                 <td className='users__action'>
                   <div className='users__btn-wrapper'>
-                    <button className='btn btn-warning'>Update</button>
-                    <button className='btn btn-danger'>Delete</button>
+                    <Link to={`/staff/${user?.id}`}>
+                      <button className='btn btn-warning'>Edit</button>
+                    </Link>
+                    {auth?.id !== user?.id ? (
+                      <button
+                        className='btn btn-danger'
+                        onClick={() => handleDelete(user?.id)}
+                      >
+                        Delete
+                      </button>
+                    ) : null}
                   </div>
                 </td>
               </tr>

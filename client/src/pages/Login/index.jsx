@@ -41,21 +41,20 @@ const Login = () => {
           withCredentials: true,
         }
       )
-      console.log('Response Data: ', response?.data)
       const accessToken = response?.data?.accessToken
       const username = response?.data?.username
       const roles = response?.data?.roles
+      const id = response?.data?.id
 
-      setAuth({ username, roles, accessToken })
+      setAuth({ id, username, roles, accessToken })
       setUser('')
       setPwd('')
       navigate(from, { replace: true })
     } catch (err) {
-      console.log(err)
       if (!err?.response) {
         setErrMsg('No Server Response')
       } else {
-        setErrMsg(err.response.data.message)
+        setErrMsg(err.response.data?.message)
       }
       errRef.current.focus() // to trigger aria accessibility
     }
