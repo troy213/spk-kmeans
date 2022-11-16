@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const db = require('../config/db_config')
 const {
   generateAccessToken,
@@ -76,9 +77,29 @@ const userDelete = (req, res) => {
   }
 }
 
+const userPasswordPut = async (req, res) => {
+  try {
+    const { id, newPwd } = req.body
+    const hashedPassword = await bcrypt.hash(newPwd, 10)
+    const sql = 'UPDATE user SET password=? WHERE id=?'
+    if (id && hashedPassword) {
+      db.query(sql, [hashedPassword, id], (err, result) => {
+        if (err) throw err
+        return res
+          .status(200)
+          .json({ success: true, message: 'password successfully changed' })
+      })
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ success: false, message: err })
+  }
+}
+
 module.exports = {
   userGet,
   userGetId,
   userPut,
   userDelete,
+  userPasswordPut,
 }

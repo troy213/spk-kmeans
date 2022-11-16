@@ -9,10 +9,10 @@ require('dotenv').config()
 const PORT = process.env.PORT || 5000
 const allowedOrigins = require('./config/allowedOrigins')
 
-const signIn = require('./middleware/signIn')
-const signUp = require('./middleware/signUp')
-const checkToken = require('./middleware/checkRefreshToken')
-const verifyJWT = require('./middleware/verifyJWT')
+const signIn = require('./middleware/sign_in')
+const signUp = require('./middleware/sign_up')
+const checkToken = require('./middleware/check_refresh_token')
+const verifyJWT = require('./middleware/verify_jwt')
 const db = require('./config/db_config')
 
 const userRouter = require('./router/user_router')
