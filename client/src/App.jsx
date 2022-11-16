@@ -10,6 +10,7 @@ import {
   Staff,
   Home,
   FormData,
+  ChangePassword,
 } from './pages'
 import RequireAuth from './utils/auth/RequireAuth'
 import PersistLogin from './utils/auth/PersistLogin'
@@ -38,6 +39,7 @@ const App = () => {
             >
               <Route path='/' element={<Home />} />
               <Route path='/form-data' element={<FormData />} />
+              <Route path='/change-password' element={<ChangePassword />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
