@@ -18,10 +18,12 @@ const FormData = () => {
 
     let isValid = true
 
+    // check if all required field is not empty
     for (const obj in data) {
       if (obj === 'error') continue
 
       for (const field in data[obj]) {
+        // skip checking value of catatan field
         if (field === 'catatan') continue
         if (!data[obj][field]) {
           isValid = false

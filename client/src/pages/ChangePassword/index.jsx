@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Info } from '@material-ui/icons'
 import './index.scss'
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{5,24}$/
 
 const ChangePassword = () => {
+  const oldPwdRef = useRef()
+
   const [oldPwd, setOldPwd] = useState('')
   const [validOldPwd, setValidOldPwd] = useState(true)
   const [oldPwdFocus, setOldPwdFocus] = useState(false)
@@ -18,6 +20,10 @@ const ChangePassword = () => {
   const [matchFocus, setMatchFocus] = useState(false)
 
   const [success, setSuccess] = useState(false)
+
+  useEffect(() => {
+    oldPwdRef.current.focus()
+  }, [])
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd)
@@ -35,6 +41,7 @@ const ChangePassword = () => {
           <input
             type='password'
             id='old-password'
+            ref={oldPwdRef}
             required
             aria-invalid={validOldPwd ? 'false' : 'true'}
             aria-describedby='oldpwdnote'

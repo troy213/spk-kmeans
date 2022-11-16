@@ -1,17 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Users } from '..'
 import './index.scss'
 
 const Staff = () => {
   return (
     <section className='staff'>
-      <h1>Staff's Page</h1>
-      <br />
-      <Users />
-      <br />
-      <div className='flexGrow'>
-        <Link to='/'>Home</Link>
+      <h1 className='staff__title'>Staff's Page</h1>
+      <div className='staff__content'>
+        <Users />
       </div>
     </section>
   )

@@ -38,6 +38,24 @@ body {
   }
 }
 
+.btn-warning {
+  background-color: $color-warning;
+  color: whitesmoke;
+
+  &:hover {
+    background-color: $color-warning-light;
+  }
+}
+
+.btn-danger {
+  background-color: $color-danger;
+  color: whitesmoke;
+
+  &:hover {
+    background-color: $color-danger-light;
+  }
+}
+
 .btn-light {
   background-color: $light;
   color: $dark;
