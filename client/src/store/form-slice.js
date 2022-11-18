@@ -33,7 +33,6 @@ const formSlice = createSlice({
       strategiResponden: '',
     },
     kesimpulan: {
-      isLayak: '',
       catatan: '',
     },
     error: {
@@ -65,9 +64,6 @@ const formSlice = createSlice({
         strategiPerumEliteErr: false,
         strategiApartemenErr: false,
         strategiRespondenErr: false,
-      },
-      kesimpulanErr: {
-        isLayakErr: false,
       },
     },
   },

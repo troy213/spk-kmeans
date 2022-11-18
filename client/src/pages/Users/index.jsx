@@ -26,8 +26,11 @@ const Users = () => {
         const response = await axiosPrivate.get('/api/users', {
           signal: controller.signal,
         })
+
+        if (response?.data?.data?.length > 0) {
+          setIsLoading(false)
+        }
         isMounted && setUsers(response.data)
-        setIsLoading(false)
       } catch (err) {
         console.error('Users Error: ', err)
         navigate('/login', { state: { from: location }, replace: true })
