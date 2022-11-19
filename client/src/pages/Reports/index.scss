@@ -1,0 +1,45 @@
+@import '../../variables';
+
+.reports {
+  flex: 4;
+  padding: 2rem;
+  color: $dark;
+}
+
+.reports-title {
+  color: $primary-color-dark;
+}
+
+.reports-content {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+.reports-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  border-radius: 1rem;
+  border: 1px solid #00000017;
+
+  & tr {
+    height: 3rem;
+  }
+
+  & tr:nth-child(even) {
+    background-color: #7e96bf17;
+  }
+
+  & th {
+    padding: 1rem;
+    background-color: $primary-color-light;
+    color: whitesmoke;
+  }
+
+  & td {
+    text-align: center;
+    padding: 1rem;
+  }
+}

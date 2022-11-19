@@ -5,7 +5,6 @@ import {
   Apps,
   Lock,
   BarChart,
-  SettingsApplications,
   InputOutlined,
 } from '@material-ui/icons'
 import { Link, useLocation } from 'react-router-dom'
@@ -24,11 +23,6 @@ const SIDEBAR_NAVIGATION = [
         icon: <InputOutlined className='sidebar-icon' />,
         link: '/form-data',
         name: 'Input Data',
-      },
-      {
-        icon: <SettingsApplications className='sidebar-icon' />,
-        link: '/process-data',
-        name: 'Process Data',
       },
       {
         icon: <BarChart className='sidebar-icon' />,

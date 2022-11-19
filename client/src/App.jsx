@@ -11,6 +11,7 @@ import {
   Home,
   FormData,
   ChangePassword,
+  Reports,
 } from './pages'
 import UserDetail from './pages/Staff/UserDetail'
 import CalonPetugasDetail from './pages/Home/CalonPetugasDetail'
@@ -43,6 +44,7 @@ const App = () => {
                 path='/calon-petugas/:id'
                 element={<CalonPetugasDetail />}
               />
+              <Route path='/reports' element={<Reports />} />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
