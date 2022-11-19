@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import cogoToast from 'cogo-toast'
-import useAxiosPrivate from '../../hooks/useAxiosPrivate'
-import useAuth from '../../hooks/useAuth'
-import { Spinner } from '../../components'
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
+import useAuth from '../../../hooks/useAuth'
+import { Spinner } from '../../../components'
 import './index.scss'
 
 const Users = () => {
@@ -30,7 +30,7 @@ const Users = () => {
         if (response?.data?.data?.length > 0) {
           setIsLoading(false)
         }
-        isMounted && setUsers(response.data)
+        isMounted && setUsers(response?.data?.data)
       } catch (err) {
         console.error('Users Error: ', err)
         navigate('/login', { state: { from: location }, replace: true })
@@ -75,9 +75,9 @@ const Users = () => {
     )
 
   return (
-    <article className='users'>
+    <div className='users'>
       <h3 className='users__title'>Users List</h3>
-      {users?.data.length ? (
+      {users?.length ? (
         <table className='users__table'>
           <thead>
             <tr>
@@ -88,7 +88,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {users.data.map((user, index) => (
+            {users.map((user, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td className='users__name'>{user?.username}</td>
@@ -117,7 +117,7 @@ const Users = () => {
       ) : (
         <p>No user to display</p>
       )}
-    </article>
+    </div>
   )
 }
 

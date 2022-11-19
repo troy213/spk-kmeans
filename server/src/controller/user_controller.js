@@ -20,7 +20,11 @@ const userGetId = (req, res) => {
   const sql = 'SELECT id, username, roles FROM user WHERE id=?'
   db.query(sql, id, (err, result) => {
     if (err) return res.status(500).json({ success: false, message: err })
-    return res.status(200).json({ success: true, data: result })
+    if (result.length === 0)
+      return res
+        .status(400)
+        .json({ success: false, message: 'id field is missing' })
+    return res.status(200).json({ success: true, data: result[0] })
   })
 }
 

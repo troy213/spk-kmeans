@@ -6,13 +6,13 @@
   color: $dark;
 }
 
-.form-data-title,
-.form-data-content__title {
+.form-data-title {
   color: $primary-color-dark;
+  font-size: 1.5rem;
 }
 
-.form-data-title {
-  font-size: 1.5rem;
+.form-data-content__title {
+  color: $color-warning;
 }
 
 .form-data-content__subtitle {

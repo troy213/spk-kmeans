@@ -1,0 +1,38 @@
+@import '../../../variables';
+
+.calon-petugas-title {
+  color: $primary-color-dark;
+}
+
+.calon-petugas-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  border-radius: 1rem;
+  border: 1px solid #00000017;
+
+  & tr {
+    height: 3rem;
+  }
+
+  & tr:nth-child(even) {
+    background-color: #7e96bf17;
+  }
+
+  & th {
+    padding: 1rem;
+    background-color: $primary-color-light;
+    color: whitesmoke;
+  }
+
+  & td {
+    text-align: center;
+    padding: 1rem;
+  }
+}
+
+.calon-petugas-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}

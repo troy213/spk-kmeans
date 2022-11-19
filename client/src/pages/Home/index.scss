@@ -1,4 +1,18 @@
+@import '../../variables';
+
 .home {
   flex: 4;
   padding: 2rem;
+  color: $dark;
+}
+
+.home-title {
+  color: $primary-color-dark;
+}
+
+.home-content {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
 }

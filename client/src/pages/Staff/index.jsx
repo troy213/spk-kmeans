@@ -1,5 +1,5 @@
 import React from 'react'
-import { Users } from '..'
+import Users from './Users'
 import './index.scss'
 
 const Staff = () => {

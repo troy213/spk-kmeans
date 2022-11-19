@@ -22,55 +22,159 @@ const BlokII = (props) => {
       question:
         'Apakah Saudara/i bersedia mengikuti pembelajaran materi Pendataan Awal Regsosek?',
       value: pertanyaanPetugas.bersediaBelajar,
-      radioContent: ['Ya', 'Ragu-ragu', 'Tidak'],
+      radioContent: [
+        {
+          name: 'Ya',
+          value: 2,
+        },
+        {
+          name: 'Ragu-ragu',
+          value: 1,
+        },
+        {
+          name: 'Tidak',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'bersediaTTD',
       question:
         'Apakah Saudara/i bersedia menandatangani perjanjian kerja sebagai petugas Pendataan Awal Regsosek selama bulan Oktober dan tidak terikan dengan pekerjaan lain?',
       value: pertanyaanPetugas.bersediaTTD,
-      radioContent: ['Ya', 'Ragu-ragu', 'Tidak'],
+      radioContent: [
+        {
+          name: 'Ya',
+          value: 2,
+        },
+        {
+          name: 'Ragu-ragu',
+          value: 1,
+        },
+        {
+          name: 'Tidak',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'bersediaAturan',
       question:
         'Apakah Saudara/i bersedia mengikuti semua aturan yang berlaku sebagai petugas Pendataan Awal Regsosek?',
       value: pertanyaanPetugas.bersediaAturan,
-      radioContent: ['Ya', 'Ragu-ragu', 'Tidak'],
+      radioContent: [
+        {
+          name: 'Ya',
+          value: 2,
+        },
+        {
+          name: 'Ragu-ragu',
+          value: 1,
+        },
+        {
+          name: 'Tidak',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'bersediaTugas',
       question:
         'Apakah Saudara/i bersedia melakukan rangkaian tugas Pendataan Awal Regsosek secara fokus?',
       value: pertanyaanPetugas.bersediaTugas,
-      radioContent: ['Ya', 'Ragu-ragu', 'Tidak'],
+      radioContent: [
+        {
+          name: 'Ya',
+          value: 2,
+        },
+        {
+          name: 'Ragu-ragu',
+          value: 1,
+        },
+        {
+          name: 'Tidak',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'kesibukan',
       question:
         'Bagaimana jadwal aktivitas kesibukan Saudara/i pada bulan Oktober - November 2022',
       value: pertanyaanPetugas.kesibukan,
-      radioContent: ['Luang', 'Sedang', 'Sibuk'],
+      radioContent: [
+        {
+          name: 'Luang',
+          value: 2,
+        },
+        {
+          name: 'Sedang',
+          value: 1,
+        },
+        {
+          name: 'Sibuk',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'hasMotor',
       question:
         'Apakah Saudara/i memiliki kendaraan roda 2 pada bulan Oktober November 2022?',
       value: pertanyaanPetugas.hasMotor,
-      radioContent: ['Ada', 'Ragu-ragu', 'Tidak ada'],
+      radioContent: [
+        {
+          name: 'Ya',
+          value: 2,
+        },
+        {
+          name: 'Ragu-ragu',
+          value: 1,
+        },
+        {
+          name: 'Tidak',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'bisaBerkendara',
       question: 'Apakah Saudara/i bisa mengendarai kendaraan roda 2?',
       value: pertanyaanPetugas.bisaBerkendara,
-      radioContent: ['Bisa', 'Ragu-ragu', 'Tidak Bisa'],
+      radioContent: [
+        {
+          name: 'Bisa',
+          value: 2,
+        },
+        {
+          name: 'Ragu-ragu',
+          value: 1,
+        },
+        {
+          name: 'Tidak bisa',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'hasAndroid',
       question:
         'Apakah Saudara/i memiliki handphone berbasis Android pada bulan Oktober November 2022?',
       value: pertanyaanPetugas.hasAndroid,
-      radioContent: ['Ada', 'Ragu-ragu', 'Tidak ada'],
+      radioContent: [
+        {
+          name: 'Ada',
+          value: 2,
+        },
+        {
+          name: 'Ragu-ragu',
+          value: 1,
+        },
+        {
+          name: 'Tidak ada',
+          value: 0,
+        },
+      ],
     },
   ]
 
@@ -97,13 +201,13 @@ const BlokII = (props) => {
                   <div className='form-data-content__radio' key={index}>
                     <input
                       type='radio'
-                      value={radioValue}
+                      value={radioValue.value}
                       name={id}
-                      checked={value === radioValue}
+                      checked={value === radioValue.value.toString()}
                       onChange={(e) => handleChange(id, e.target.value)}
                     />
                     <span className='form-data-content__radio-value'>
-                      {radioValue}
+                      {radioValue.name}
                     </span>
                   </div>
                 )

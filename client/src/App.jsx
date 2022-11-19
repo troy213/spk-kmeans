@@ -11,16 +11,14 @@ import {
   Home,
   FormData,
   ChangePassword,
-  UserDetail,
 } from './pages'
+import UserDetail from './pages/Staff/UserDetail'
+import CalonPetugasDetail from './pages/Home/CalonPetugasDetail'
 import RequireAuth from './utils/auth/RequireAuth'
 import PersistLogin from './utils/auth/PersistLogin'
 import './App.scss'
 
-const ROLES = {
-  Admin: 1,
-  Staff: 2,
-}
+import ROLES from './utils/const/roles'
 
 const App = () => {
   return (
@@ -41,6 +39,10 @@ const App = () => {
               <Route path='/' element={<Home />} />
               <Route path='form-data' element={<FormData />} />
               <Route path='change-password' element={<ChangePassword />} />
+              <Route
+                path='/calon-petugas/:id'
+                element={<CalonPetugasDetail />}
+              />
             </Route>
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>

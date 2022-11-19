@@ -16,6 +16,7 @@ const verifyJWT = require('./middleware/verify_jwt')
 const db = require('./config/db_config')
 
 const userRouter = require('./router/user_router')
+const calonPetugasRouter = require('./router/calon_petugas_router')
 
 const {
   generateAccessToken,
@@ -128,6 +129,7 @@ app.post('/api/refresh_token', checkToken, (req, res) => {
 app.use(verifyJWT)
 
 app.use('/api/users', userRouter)
+app.use('/api/calon-petugas', calonPetugasRouter)
 
 app.get('*', (req, res) => {
   res.status(404).json({ success: false, message: '404 Not Found' })

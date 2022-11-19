@@ -19,7 +19,9 @@ const Navbar = () => {
     <nav className='navbar'>
       <div className='navbar-wrapper'>
         <div className='navbar-left'>
-          <span className='navbar-title'>Logo</span>
+          <span className='navbar-title'>
+            REG<span className='navbar-title__white'>SOSEK</span>
+          </span>
         </div>
         <div className='navbar-right'>
           <span className='navbar-user'>

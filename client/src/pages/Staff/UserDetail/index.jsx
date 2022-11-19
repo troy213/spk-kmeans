@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import cogoToast from 'cogo-toast'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Info } from '@material-ui/icons'
-import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
 import './index.scss'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-]{3,23}$/
@@ -17,6 +17,10 @@ const ROLES = [
     role: 'Staff',
   },
 ]
+
+/* TODO:  1. Add loading spinner while client is fetching data to server
+          2. Refactor fetching function by using redux toolkit
+*/
 
 const UserDetail = (props) => {
   const { id } = useParams()
@@ -47,7 +51,7 @@ const UserDetail = (props) => {
         const response = await axiosPrivate.get(`/api/users/${id}`, {
           signal: controller.signal,
         })
-        isMounted && setUser(response.data.data[0])
+        isMounted && setUser(response?.data?.data)
       } catch (err) {
         console.error('Users Error: ', err)
         navigate('/login', { state: { from: location }, replace: true })

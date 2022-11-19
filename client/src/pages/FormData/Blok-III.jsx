@@ -20,21 +20,64 @@ const BlokIII = (props) => {
       question:
         'Bagaimana penilaian penguji terhadap kemampuan berkomunikasi dari calon petugas?',
       value: penilaian.nilaiCalon,
-      radioContent: ['Baik sekali', 'Baik', 'Sedang', 'Kurang'],
+      radioContent: [
+        {
+          name: 'Baik sekali',
+          value: 3,
+        },
+        {
+          name: 'Baik',
+          value: 2,
+        },
+        {
+          name: 'Sedang',
+          value: 1,
+        },
+        {
+          name: 'Kurang',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'kelengkapanDokumen',
       question:
         'Bagaimana kelengkapan dokumen calon petugas (fotokopi KTP dan ijazah, surat lamaran dengan tulisan tangan, pas photo ukuran 3x4 dan 4x6)?',
       value: penilaian.kelengkapanDokumen,
-      radioContent: ['Lengkap', 'Tidak lengkap'],
+      radioContent: [
+        {
+          name: 'Lengkap',
+          value: 3,
+        },
+        {
+          name: 'Tidak lengkap',
+          value: 0,
+        },
+      ],
     },
     {
       id: 'kepribadian',
       question:
         'Bagaimana kepribadian calon petugas (penampilan, sikap dan cara berbicara calon petugas)?',
       value: penilaian.kepribadian,
-      radioContent: ['Baik sekali', 'Baik', 'Sedang', 'Kurang'],
+      radioContent: [
+        {
+          name: 'Baik sekali',
+          value: 3,
+        },
+        {
+          name: 'Baik',
+          value: 2,
+        },
+        {
+          name: 'Sedang',
+          value: 1,
+        },
+        {
+          name: 'Kurang',
+          value: 0,
+        },
+      ],
     },
   ]
 
@@ -59,13 +102,13 @@ const BlokIII = (props) => {
                   <div className='form-data-content__radio' key={index}>
                     <input
                       type='radio'
-                      value={radioValue}
+                      value={radioValue.value}
                       name={id}
-                      checked={value === radioValue}
+                      checked={value === radioValue.value.toString()}
                       onChange={(e) => handleChange(id, e.target.value)}
                     />
                     <span className='form-data-content__radio-value'>
-                      {radioValue}
+                      {radioValue.name}
                     </span>
                   </div>
                 )

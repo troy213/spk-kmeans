@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { formActions } from '../../store/form-slice'
+import { useNavigate } from 'react-router-dom'
+import cogoToast from 'cogo-toast'
+import useAuth from '../../hooks/useAuth'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import BlokI from './Blok-I'
 import BlokII from './Blok-II'
 import BlokIII from './Blok-III'
 import BlokIV from './Blok-IV'
 import BlokV from './Blok-V'
-import { useSelector, useDispatch } from 'react-redux'
-import { formActions } from '../../store/form-slice'
-import cogoToast from 'cogo-toast'
 import './index.scss'
 
+const CALON_PETUGAS_URL = '/api/calon-petugas'
+
 const FormData = () => {
+  const { auth } = useAuth()
+  const axiosPrivate = useAxiosPrivate()
+  const navigate = useNavigate()
+
   const data = useSelector((state) => state.form)
   const dispatch = useDispatch()
+
+  const [isSuccess, setIsSuccess] = useState(false)
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/')
+    }
+  }, [isSuccess])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -47,9 +64,47 @@ const FormData = () => {
     }
 
     if (isValid) {
-      cogoToast.success('Data Aman')
+      submitForm()
     } else {
       cogoToast.error('Data masih ada yang kosong')
+    }
+  }
+
+  const submitForm = async () => {
+    const {
+      keteranganCalon,
+      pertanyaanPetugas,
+      penilaian,
+      pengetahuan,
+      kesimpulan,
+    } = data
+    const formData = JSON.stringify({
+      keteranganCalon,
+      pertanyaanPetugas,
+      penilaian,
+      pengetahuan,
+      kesimpulan,
+    })
+
+    try {
+      const response = await axiosPrivate.post(
+        CALON_PETUGAS_URL,
+        JSON.stringify({
+          userId: auth.id,
+          date: new Date(keteranganCalon.hari).toISOString(),
+          formData,
+        })
+      )
+      dispatch(formActions.clearForm())
+      setIsSuccess(true)
+      cogoToast.success('Form Submited!')
+      // clear input fields
+    } catch (err) {
+      if (!err?.response) {
+        cogoToast.error('No Server Response')
+      } else {
+        cogoToast.error(err.response?.data?.message)
+      }
     }
   }
 

@@ -87,6 +87,40 @@ const formSlice = createSlice({
       state.error[action.payload.state][action.payload.input] =
         action.payload.value
     },
+    clearForm(state) {
+      state.keteranganCalon = {
+        hari: '',
+        waktuDanTempat: '',
+        namaCalon: '',
+        nik: '',
+        kecamatan: '',
+        kelurahan: '',
+        nomorHpCalon: '',
+      }
+      state.pertanyaanPetugas = {
+        bersediaBelajar: '',
+        bersediaTTD: '',
+        bersediaAturan: '',
+        bersediaTugas: '',
+        kesibukan: '',
+        hasMotor: '',
+        bisaBerkendara: '',
+        hasAndroid: '',
+      }
+      state.penilaian = {
+        nilaiCalon: '',
+        kelengkapanDokumen: '',
+        kepribadian: '',
+      }
+      state.pengetahuan = {
+        strategiPerumElite: '',
+        strategiApartemen: '',
+        strategiResponden: '',
+      }
+      state.kesimpulan = {
+        catatan: '',
+      }
+    },
   },
 })
 
