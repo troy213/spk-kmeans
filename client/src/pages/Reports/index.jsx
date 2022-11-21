@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { WarningRounded } from '@material-ui/icons'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { Spinner } from '../../components'
 import './index.scss'
@@ -41,7 +42,7 @@ const Reports = () => {
           signal: controller.signal,
         })
 
-        if (response?.data?.data?.length > 0) {
+        if (response?.data?.data) {
           setIsLoading(false)
         }
         isMounted &&
@@ -76,11 +77,24 @@ const Reports = () => {
       </div>
     )
 
+  if (result.data.length === 0)
+    return (
+      <div className='reports'>
+        <h1 className='reports-title'>Reports</h1>
+        <div className='reports-content'>
+          <div className='reports-content-wrapper'>
+            <WarningRounded className='reports-content-icon' />
+            <p>Data yang tersimpan kurang dari 2</p>
+          </div>
+        </div>
+      </div>
+    )
+
   return (
     <div className='reports'>
       <h1 className='reports-title'>Reports</h1>
       <div className='reports-content'>
-        <h3 className='reports-title'>Calon Petugas List</h3>
+        <h3 className='reports-content-title'>Calon Petugas List</h3>
         {result.data?.length ? (
           <table className='reports-table'>
             <thead>

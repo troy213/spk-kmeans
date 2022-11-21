@@ -2,10 +2,13 @@ const db = require('../config/db_config')
 const kmeans = require('node-kmeans')
 const { getScoreValue } = require('../utils/utils')
 
-const getCalonPetugasValue = (req, res, next) => {
+const getCalonPetugasValue = (req, res) => {
   const sql = 'SELECT id, date, data FROM master_calon_petugas'
   db.query(sql, (err, result) => {
     if (err) return res.status(400).json({ success: false, message: err })
+    if (result.length < 2)
+      return res.status(200).json({ success: true, data: [], kmeans: [] })
+
     const arrayResult = result.map((value) => {
       const { id, date, data } = value
       const parsedData = JSON.parse(data)

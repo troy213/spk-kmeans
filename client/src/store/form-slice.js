@@ -88,37 +88,13 @@ const formSlice = createSlice({
         action.payload.value
     },
     clearForm(state) {
-      state.keteranganCalon = {
-        hari: '',
-        waktuDanTempat: '',
-        namaCalon: '',
-        nik: '',
-        kecamatan: '',
-        kelurahan: '',
-        nomorHpCalon: '',
-      }
-      state.pertanyaanPetugas = {
-        bersediaBelajar: '',
-        bersediaTTD: '',
-        bersediaAturan: '',
-        bersediaTugas: '',
-        kesibukan: '',
-        hasMotor: '',
-        bisaBerkendara: '',
-        hasAndroid: '',
-      }
-      state.penilaian = {
-        nilaiCalon: '',
-        kelengkapanDokumen: '',
-        kepribadian: '',
-      }
-      state.pengetahuan = {
-        strategiPerumElite: '',
-        strategiApartemen: '',
-        strategiResponden: '',
-      }
-      state.kesimpulan = {
-        catatan: '',
+      for (const stateObj in state) {
+        const EXCEPTION = ['error']
+        if (EXCEPTION.includes(stateObj)) continue
+
+        for (const childStateObj in state[stateObj]) {
+          state[stateObj][childStateObj] = ''
+        }
       }
     },
   },
