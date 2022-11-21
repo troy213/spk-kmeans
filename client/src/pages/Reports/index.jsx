@@ -96,42 +96,46 @@ const Reports = () => {
       <div className='reports-content'>
         <h3 className='reports-content-title'>Calon Petugas List</h3>
         {result.data?.length ? (
-          <table className='reports-table'>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Date</th>
-                <th>Nama Calon Petugas</th>
-                <th>Score I</th>
-                <th>Score II</th>
-                <th>Score III</th>
-                <th>Cluster</th>
-                <th>Keterangan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.data.map((calon, index) => {
-                const { namaCalon, score } = calon
-                const date = calon.date.split('T')[0]
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td className='reports-date'>{date}</td>
-                    <td className='reports-name'>{namaCalon}</td>
-                    <td className='reports-score'>{score.pertanyaanPetugas}</td>
-                    <td className='reports-score'>{score.penilaian}</td>
-                    <td className='reports-score'>{score.pengetahuan}</td>
-                    <td>
-                      {result.kmeans[0].clusterInd.includes(index)
-                        ? 'C1'
-                        : 'C2'}
-                    </td>
-                    <td>{checkLulusHelper(result.kmeans, index)}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+          <div className='reports-content-table-wrapper'>
+            <table className='reports-table'>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Date</th>
+                  <th>Nama Calon Petugas</th>
+                  <th>Score I</th>
+                  <th>Score II</th>
+                  <th>Score III</th>
+                  <th>Cluster</th>
+                  <th>Keterangan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.data.map((calon, index) => {
+                  const { namaCalon, score } = calon
+                  const date = calon.date.split('T')[0]
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className='reports-date'>{date}</td>
+                      <td className='reports-name'>{namaCalon}</td>
+                      <td className='reports-score'>
+                        {score.pertanyaanPetugas}
+                      </td>
+                      <td className='reports-score'>{score.penilaian}</td>
+                      <td className='reports-score'>{score.pengetahuan}</td>
+                      <td>
+                        {result.kmeans[0].clusterInd.includes(index)
+                          ? 'C1'
+                          : 'C2'}
+                      </td>
+                      <td>{checkLulusHelper(result.kmeans, index)}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <p>No data to display</p>
         )}

@@ -4,6 +4,7 @@
   flex: 4;
   padding: 2rem;
   color: $dark;
+  overflow-x: auto;
 }
 
 .reports-title {
@@ -33,6 +34,10 @@
 
 .reports-content-title {
   color: $primary-color-dark;
+}
+
+.reports-content-table-wrapper {
+  overflow-x: auto;
 }
 
 .reports-table {

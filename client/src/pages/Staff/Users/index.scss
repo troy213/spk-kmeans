@@ -5,6 +5,10 @@
     color: $primary-color-dark;
   }
 
+  &__table-wrapper {
+    overflow-x: auto;
+  }
+
   &__table {
     width: 100%;
     margin-top: 1rem;

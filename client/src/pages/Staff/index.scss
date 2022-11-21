@@ -4,6 +4,7 @@
   flex: 4;
   padding: 2rem;
   color: $dark;
+  overflow-x: auto;
 
   &__title {
     color: $primary-color-dark;

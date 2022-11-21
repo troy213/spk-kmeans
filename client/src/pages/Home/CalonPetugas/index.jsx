@@ -78,48 +78,50 @@ const CalonPetugas = () => {
     <div className='calon-petugas'>
       <h3 className='calon-petugas-title'>Calon Petugas List</h3>
       {data?.length ? (
-        <table className='calon-petugas-table'>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Date</th>
-              <th>Nama Calon Petugas</th>
-              <th>Nama Pewawancara</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((calon, index) => {
-              const dataCalon = JSON.parse(calon.data)
-              const date = calon.date.split('T')[0]
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td className='calon-petugas-date'>{date}</td>
-                  <td className='calon-petugas-name'>
-                    {dataCalon.keteranganCalon.namaCalon}
-                  </td>
-                  <td className='calon-petugas-pewawancara'>
-                    {calon.username}
-                  </td>
-                  <td className='calon-petugas-action'>
-                    <div className='calon-petugas-btn-wrapper'>
-                      <Link to={`/calon-petugas/${calon.id}`}>
-                        <button className='btn btn-primary'>Detail</button>
-                      </Link>
-                      <button
-                        className='btn btn-danger'
-                        onClick={() => handleDelete(calon.id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <div className='calon-petugas-table-wrapper'>
+          <table className='calon-petugas-table'>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Date</th>
+                <th>Nama Calon Petugas</th>
+                <th>Nama Pewawancara</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((calon, index) => {
+                const dataCalon = JSON.parse(calon.data)
+                const date = calon.date.split('T')[0]
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td className='calon-petugas-date'>{date}</td>
+                    <td className='calon-petugas-name'>
+                      {dataCalon.keteranganCalon.namaCalon}
+                    </td>
+                    <td className='calon-petugas-pewawancara'>
+                      {calon.username}
+                    </td>
+                    <td className='calon-petugas-action'>
+                      <div className='calon-petugas-btn-wrapper'>
+                        <Link to={`/calon-petugas/${calon.id}`}>
+                          <button className='btn btn-primary'>Detail</button>
+                        </Link>
+                        <button
+                          className='btn btn-danger'
+                          onClick={() => handleDelete(calon.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p>No data to display</p>
       )}

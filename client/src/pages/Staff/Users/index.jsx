@@ -76,44 +76,46 @@ const Users = () => {
 
   return (
     <div className='users'>
-      <h3 className='users__title'>Users List</h3>
+      <h3 className='users__title'>User List</h3>
       {users?.length ? (
-        <table className='users__table'>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Username</th>
-              <th>Roles</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td className='users__name'>{user?.username}</td>
-                <td className='users__roles'>
-                  {user?.roles === 1 ? 'Admin' : 'Staff'}
-                </td>
-                <td className='users__action'>
-                  <div className='users__btn-wrapper'>
-                    <Link to={`/staff/${user?.id}`}>
-                      <button className='btn btn-warning'>Edit</button>
-                    </Link>
-                    {auth?.id !== user?.id ? (
-                      <button
-                        className='btn btn-danger'
-                        onClick={() => handleDelete(user?.id)}
-                      >
-                        Delete
-                      </button>
-                    ) : null}
-                  </div>
-                </td>
+        <div className='users__table-wrapper'>
+          <table className='users__table'>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Username</th>
+                <th>Roles</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td className='users__name'>{user?.username}</td>
+                  <td className='users__roles'>
+                    {user?.roles === 1 ? 'Admin' : 'Staff'}
+                  </td>
+                  <td className='users__action'>
+                    <div className='users__btn-wrapper'>
+                      <Link to={`/staff/${user?.id}`}>
+                        <button className='btn btn-warning'>Edit</button>
+                      </Link>
+                      {auth?.id !== user?.id ? (
+                        <button
+                          className='btn btn-danger'
+                          onClick={() => handleDelete(user?.id)}
+                        >
+                          Delete
+                        </button>
+                      ) : null}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p>No user to display</p>
       )}
