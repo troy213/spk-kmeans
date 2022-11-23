@@ -66,6 +66,7 @@ const formSlice = createSlice({
         strategiRespondenErr: false,
       },
     },
+    modalValue: '',
   },
   reducers: {
     setKeteranganCalon(state, action) {
@@ -86,6 +87,9 @@ const formSlice = createSlice({
     setError(state, action) {
       state.error[action.payload.state][action.payload.input] =
         action.payload.value
+    },
+    setModalValue(state, action) {
+      state.modalValue = action.payload
     },
     clearForm(state) {
       for (const stateObj in state) {

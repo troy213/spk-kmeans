@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import cogoToast from 'cogo-toast'
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
-import { Spinner } from '../../../components'
+import { Spinner, Modal } from '../../../components'
 import './index.scss'
 
 const CALON_PETUGAS_URL = '/api/calon-petugas'
@@ -11,6 +11,9 @@ const CalonPetugas = () => {
   const [data, setData] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const [isSuccess, setIsSuccess] = useState(false)
+
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const deleteIdRef = useRef()
 
   const axiosPrivate = useAxiosPrivate()
   const navigate = useNavigate()
@@ -52,6 +55,11 @@ const CalonPetugas = () => {
     }
   }, [isSuccess])
 
+  const handleOpenModal = (id) => {
+    setModalIsOpen(true)
+    deleteIdRef.current = id
+  }
+
   const handleDelete = async (id) => {
     try {
       const response = await axiosPrivate.delete(`/api/calon-petugas/${id}`)
@@ -76,6 +84,20 @@ const CalonPetugas = () => {
 
   return (
     <div className='calon-petugas'>
+      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <div className='p-4'>
+          <p>Are you sure you want to delete this data?</p>
+          <div className='btn-wrapper pt-4'>
+            <button
+              className='btn btn-danger'
+              onClick={() => handleDelete(deleteIdRef.current)}
+            >
+              Yes
+            </button>
+            <button className='btn btn-light'>No</button>
+          </div>
+        </div>
+      </Modal>
       <h3 className='calon-petugas-title'>Calon Petugas List</h3>
       {data?.length ? (
         <div className='calon-petugas-table-wrapper'>
@@ -110,7 +132,7 @@ const CalonPetugas = () => {
                         </Link>
                         <button
                           className='btn btn-danger'
-                          onClick={() => handleDelete(calon.id)}
+                          onClick={() => handleOpenModal(calon.id)}
                         >
                           Delete
                         </button>

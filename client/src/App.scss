@@ -26,6 +26,12 @@ body {
   height: 200px;
 }
 
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .btn {
   padding: 0.5rem;
   border: none;
@@ -97,4 +103,16 @@ body {
 
 .p-3 {
   padding: 0.75rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.py-4 {
+  padding: 1rem 0;
+}
+
+.pt-4 {
+  padding-top: 1rem;
 }

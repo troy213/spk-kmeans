@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import cogoToast from 'cogo-toast'
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate'
 import useAuth from '../../../hooks/useAuth'
-import { Spinner } from '../../../components'
+import { Spinner, Modal } from '../../../components'
 import './index.scss'
 
 const Users = () => {
   const [users, setUsers] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const [isSuccess, setIsSuccess] = useState(false)
+
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const deleteIdRef = useRef()
 
   const { auth } = useAuth()
   const axiosPrivate = useAxiosPrivate()
@@ -52,6 +55,11 @@ const Users = () => {
     }
   }, [isSuccess])
 
+  const handleOpenModal = (id) => {
+    setModalIsOpen(true)
+    deleteIdRef.current = id
+  }
+
   const handleDelete = async (id) => {
     try {
       const response = await axiosPrivate.delete(`/api/users/${id}`)
@@ -76,6 +84,20 @@ const Users = () => {
 
   return (
     <div className='users'>
+      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <div className='p-4'>
+          <p>Are you sure you want to delete this user?</p>
+          <div className='btn-wrapper pt-4'>
+            <button
+              className='btn btn-danger'
+              onClick={() => handleDelete(deleteIdRef.current)}
+            >
+              Yes
+            </button>
+            <button className='btn btn-light'>No</button>
+          </div>
+        </div>
+      </Modal>
       <h3 className='users__title'>User List</h3>
       {users?.length ? (
         <div className='users__table-wrapper'>
@@ -104,7 +126,7 @@ const Users = () => {
                       {auth?.id !== user?.id ? (
                         <button
                           className='btn btn-danger'
-                          onClick={() => handleDelete(user?.id)}
+                          onClick={() => handleOpenModal(user?.id)}
                         >
                           Delete
                         </button>

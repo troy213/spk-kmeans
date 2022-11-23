@@ -1,0 +1,42 @@
+@import '../../variables';
+
+.modal {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  font-family: 'Poppins', sans-serif;
+}
+
+.modal-container {
+  padding: 1em;
+  position: relative;
+  background: $light;
+  border-radius: 5px;
+  min-height: 100px;
+  min-width: 100px;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101;
+}
+
+.modal-value {
+  margin: 3rem 1.5rem;
+  color: $dark;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  font-size: 1.5rem;
+  color: $dark;
+  cursor: pointer;
+}

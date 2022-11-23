@@ -5,10 +5,8 @@
 1. Add form input validation in "Input Data" page
 2. Add conditional rendering for sidebar content depends on user role
 3. Implement "VerifyRoles" middleware for some request
-4. Add loading spinner on some page
-5. Refactor fetching function using redux toolkit and refactor CSS files
-6. Form date issue
-7. Add Modal
+4. Refactor fetching function using redux toolkit and refactor CSS files
+5. Form date issue
 
 ## TBD:
 
