@@ -8,6 +8,7 @@ import {
   InputOutlined,
 } from '@material-ui/icons'
 import { Link, useLocation } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 import './index.scss'
 
 const SIDEBAR_NAVIGATION = [
@@ -18,16 +19,19 @@ const SIDEBAR_NAVIGATION = [
         icon: <Home className='sidebar-icon' />,
         link: '/',
         name: 'Home',
+        allowedRoles: [1, 2],
       },
       {
         icon: <InputOutlined className='sidebar-icon' />,
         link: '/form-data',
         name: 'Input Data',
+        allowedRoles: [1, 2],
       },
       {
         icon: <BarChart className='sidebar-icon' />,
         link: '/reports',
         name: 'Reports',
+        allowedRoles: [1, 2],
       },
     ],
   },
@@ -38,22 +42,26 @@ const SIDEBAR_NAVIGATION = [
         icon: <WorkOutline className='sidebar-icon' />,
         link: '/staff',
         name: 'Manage',
+        allowedRoles: [1],
       },
       {
         icon: <Apps className='sidebar-icon' />,
         link: '/register',
         name: 'Register',
+        allowedRoles: [1],
       },
       {
         icon: <Lock className='sidebar-icon' />,
         link: '/change-password',
         name: 'Change Password',
+        allowedRoles: [1, 2],
       },
     ],
   },
 ]
 
 const Sidebar = () => {
+  const { auth } = useAuth()
   const location = useLocation()
 
   return (
@@ -67,20 +75,24 @@ const Sidebar = () => {
               <h3 className='sidebar-title'>{title}</h3>
               <ul className='sidebar-list'>
                 {content.map((content, contentIndex) => {
-                  const { icon, link, name } = content
+                  const { icon, link, name, allowedRoles } = content
 
                   return (
-                    <li
-                      className={`sidebar-list-item${
-                        location.pathname === link ? ' active' : ''
-                      }`}
-                      key={contentIndex}
-                    >
-                      {icon}
-                      <Link to={link} className='link'>
-                        {name}
-                      </Link>
-                    </li>
+                    <React.Fragment key={contentIndex}>
+                      {allowedRoles.includes(auth?.roles) ? (
+                        <li
+                          className={`sidebar-list-item${
+                            location.pathname === link ? ' active' : ''
+                          }`}
+                          key={contentIndex}
+                        >
+                          {icon}
+                          <Link to={link} className='link'>
+                            {name}
+                          </Link>
+                        </li>
+                      ) : null}
+                    </React.Fragment>
                   )
                 })}
               </ul>
