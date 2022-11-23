@@ -70,7 +70,7 @@ const BlokI = (props) => {
               <DatePicker
                 id={id}
                 selected={value && new Date(value)}
-                onChange={(date) => handleChange(id, date.toString())}
+                onChange={(date) => handleChange(id, date.toISOString())}
                 className={
                   keteranganCalonErr?.[`${id}Err`] && !value
                     ? 'input-error'

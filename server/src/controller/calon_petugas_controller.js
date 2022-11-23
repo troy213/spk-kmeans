@@ -3,7 +3,7 @@ const db = require('../config/db_config')
 
 const calonPetugasGet = (req, res) => {
   const sql =
-    'SELECT calon.id, calon.date, calon.data, user.username FROM master_calon_petugas AS calon INNER JOIN user ON calon.user_id = user.id;'
+    'SELECT calon.id, calon.date, calon.data, user.username FROM master_calon_petugas AS calon INNER JOIN user ON calon.user_id = user.id ORDER BY calon.date ASC;'
   db.query(sql, (err, result) => {
     if (err) return res.status(500).json({ success: false, message: err })
     return res.status(200).json({ success: true, data: result })
@@ -25,11 +25,15 @@ const calonPetugasGetId = (req, res) => {
 }
 
 const calonPetugasPost = (req, res) => {
-  const { userId, date, formData } = req.body
+  const { userId, formData } = req.body
   const id = uuidv4()
+  const date = new Date(req.body.date)
+  const newDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`
   const sql =
     'INSERT INTO master_calon_petugas (id, user_id, date, data) VALUES(?, ?, ?, ?)'
-  db.query(sql, [id, userId, date, formData], (err, result) => {
+  db.query(sql, [id, userId, newDate, formData], (err, result) => {
     if (err) return res.status(500).json({ success: false, message: err })
     return res
       .status(200)

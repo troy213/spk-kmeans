@@ -5,7 +5,6 @@
 1. Add form input validation in "Input Data" page
 2. Implement "VerifyRoles" middleware for some request
 3. Refactor fetching function using redux toolkit and refactor CSS files
-4. Form date issue
 
 ## TBD:
 

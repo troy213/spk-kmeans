@@ -113,7 +113,11 @@ const Reports = () => {
               <tbody>
                 {result.data.map((calon, index) => {
                   const { namaCalon, score } = calon
-                  const date = calon.date.split('T')[0]
+                  const isoStr = new Date(calon.date)
+                  const date = `${isoStr.getFullYear()}-${
+                    isoStr.getMonth() + 1
+                  }-${isoStr.getDate()}`
+
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>

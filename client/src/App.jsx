@@ -6,7 +6,6 @@ import {
   Login,
   Unauthorized,
   NotFound,
-  Editor,
   Staff,
   Home,
   FormData,
@@ -51,10 +50,6 @@ const App = () => {
               <Route path='staff' element={<Staff />} />
               <Route path='staff/:id' element={<UserDetail />} />
               <Route path='register' element={<Register />} />
-            </Route>
-
-            <Route element={<RequireAuth allowedRoles={[ROLES.Staff]} />}>
-              <Route path='editor' element={<Editor />} />
             </Route>
           </Route>
         </Route>

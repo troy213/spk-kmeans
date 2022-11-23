@@ -97,6 +97,34 @@ body {
   color: $light;
 }
 
+.label-input-error {
+  color: red !important;
+}
+
+.input-error {
+  border: 1px solid red !important;
+
+  &:focus {
+    outline: 1px solid red;
+  }
+}
+
+.offscreen {
+  display: none;
+}
+
+.instructions {
+  color: #777;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.info-icon {
+  font-size: 0.75rem !important;
+  margin-right: 0.5rem;
+  color: $primary-color-light;
+}
+
 .mt-4 {
   margin-top: 1rem;
 }

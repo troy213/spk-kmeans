@@ -8,7 +8,7 @@ const {
 } = require('../token')
 
 const userGet = (req, res) => {
-  const sql = 'SELECT id, username, roles FROM user'
+  const sql = 'SELECT id, username, roles FROM user ORDER BY username ASC'
   db.query(sql, (err, result) => {
     if (err) return res.status(500).json({ success: false, message: err })
     return res.status(200).json({ success: true, data: result })

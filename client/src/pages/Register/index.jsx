@@ -77,7 +77,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/login')
+      navigate('/staff')
     }
   }, [isSuccess])
 

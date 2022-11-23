@@ -91,7 +91,7 @@ const FormData = () => {
         CALON_PETUGAS_URL,
         JSON.stringify({
           userId: auth.id,
-          date: new Date(keteranganCalon.hari).toISOString(),
+          date: keteranganCalon.hari,
           formData,
         })
       )
