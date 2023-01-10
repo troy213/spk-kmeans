@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { WarningRounded } from '@material-ui/icons'
+import { useSelector } from 'react-redux'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { Spinner } from '../../components'
+import simpleAdditiveWeighting from '../../utils/simpleAdditiveWeighting'
 import './index.scss'
 
 const PROCESS_URL = '/api/proses'
 
-const checkLulusHelper = (kmeans, index) => {
-  const c1 = kmeans[0].centroid.reduce((a, b) => a + b, 0)
-  const c2 = kmeans[1].centroid.reduce((a, b) => a + b, 0)
-
-  if (c1 > c2) {
-    if (kmeans[0].clusterInd.includes(index)) return 'Lulus'
-    return 'Tidak Lulus'
-  } else {
-    if (kmeans[0].clusterInd.includes(index)) return 'Tidak Lulus'
-    return 'Lulus'
-  }
-}
-
 const Reports = () => {
-  const [result, setResult] = useState({
-    data: [],
-    kmeans: [],
-  })
+  const [result, setResult] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const criteria = useSelector((state) => state.criteria)
 
   const axiosPrivate = useAxiosPrivate()
   const navigate = useNavigate()
@@ -46,10 +32,9 @@ const Reports = () => {
           setIsLoading(false)
         }
         isMounted &&
-          setResult({
-            data: response?.data.data,
-            kmeans: response?.data.kmeans,
-          })
+          setResult(
+            simpleAdditiveWeighting(criteria.data, response?.data?.data)
+          )
       } catch (err) {
         console.error('Proses Error: ', err)
         navigate('/login', { state: { from: location }, replace: true })
@@ -77,63 +62,36 @@ const Reports = () => {
       </div>
     )
 
-  if (result.data.length === 0)
-    return (
-      <div className='reports'>
-        <h1 className='reports-title'>Reports</h1>
-        <div className='reports-content'>
-          <div className='reports-content-wrapper'>
-            <WarningRounded className='reports-content-icon' />
-            <p>Data yang tersimpan kurang dari 2</p>
-          </div>
-        </div>
-      </div>
-    )
-
   return (
     <div className='reports'>
       <h1 className='reports-title'>Reports</h1>
       <div className='reports-content'>
         <h3 className='reports-content-title'>Calon Petugas List</h3>
-        {result.data?.length ? (
+        {result?.length ? (
           <div className='reports-content-table-wrapper'>
             <table className='reports-table'>
               <thead>
                 <tr>
-                  <th>No</th>
+                  <th>Rank</th>
                   <th>Date</th>
                   <th>Nama Calon Petugas</th>
-                  <th>Score I</th>
-                  <th>Score II</th>
-                  <th>Score III</th>
-                  <th>Cluster</th>
-                  <th>Keterangan</th>
+                  <th>Score</th>
                 </tr>
               </thead>
               <tbody>
-                {result.data.map((calon, index) => {
-                  const { namaCalon, score } = calon
+                {result.map((calon, index) => {
+                  const { id, namaCalon, scores } = calon
                   const isoStr = new Date(calon.date)
-                  const date = `${isoStr.getFullYear()}-${
+                  const date = `${isoStr.getDate()}-${
                     isoStr.getMonth() + 1
-                  }-${isoStr.getDate()}`
+                  }-${isoStr.getFullYear()}`
 
                   return (
-                    <tr key={index}>
+                    <tr key={id}>
                       <td>{index + 1}</td>
-                      <td className='reports-date'>{date}</td>
-                      <td className='reports-name'>{namaCalon}</td>
-                      <td className='reports-score'>
-                        {score.pertanyaanPetugas}
-                      </td>
-                      <td className='reports-score'>{score.penilaian}</td>
-                      <td className='reports-score'>{score.pengetahuan}</td>
-                      <td>
-                        {result.kmeans[0].clusterInd.includes(index)
-                          ? 'C1'
-                          : 'C2'}
-                      </td>
-                      <td>{checkLulusHelper(result.kmeans, index)}</td>
+                      <td>{date}</td>
+                      <td>{namaCalon}</td>
+                      <td>{scores}</td>
                     </tr>
                   )
                 })}
@@ -141,7 +99,7 @@ const Reports = () => {
             </table>
           </div>
         ) : (
-          <p>No data to display</p>
+          <p className='text-center mt-4'>No data to display</p>
         )}
       </div>
     </div>

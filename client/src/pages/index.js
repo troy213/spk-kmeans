@@ -7,6 +7,7 @@ import Unauthorized from './Unauthorized'
 import FormData from './FormData'
 import ChangePassword from './ChangePassword'
 import Reports from './Reports'
+import Config from './Config'
 
 export {
   Register,
@@ -18,4 +19,5 @@ export {
   FormData,
   ChangePassword,
   Reports,
+  Config,
 }

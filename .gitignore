@@ -21,6 +21,7 @@
 .env.production.local
 .env
 /server/.env
+TODO.md
 
 npm-debug.log*
 yarn-debug.log*

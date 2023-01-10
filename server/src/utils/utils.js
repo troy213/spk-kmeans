@@ -16,7 +16,7 @@ const getScoreValue = (parsedData) => {
     penilaian: 9,
     pengetahuan: 30,
   }
-  let returnedObject = {}
+  let returnedArray = []
 
   for (const field in parsedData) {
     if (!SCORE_FIELD.includes(field)) continue
@@ -25,12 +25,9 @@ const getScoreValue = (parsedData) => {
       (a, b) => parseInt(a) + parseInt(b),
       0
     )
-    returnedObject = {
-      ...returnedObject,
-      [field]: convertScore(sum, MAX_SCORE[field]),
-    }
+    returnedArray = [...returnedArray, convertScore(sum, MAX_SCORE[field])]
   }
-  return returnedObject
+  return returnedArray
 }
 
 module.exports = {

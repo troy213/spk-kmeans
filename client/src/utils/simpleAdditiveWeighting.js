@@ -19,14 +19,14 @@ const simpleAdditiveWeighting = (criteria, alternatives) => {
         ? roundedValue(alternative.scores[index] / maxValue)
         : roundedValue(minValue / alternative.scores[index])
 
-      const resultIndex = result.findIndex(
-        (res) => res.name === alternative.name
-      )
+      const resultIndex = result.findIndex((res) => res.id === alternative.id)
       if (resultIndex >= 0) {
         result[resultIndex].scores.push(roundedValue(score * criterion.weight))
       } else {
         result.push({
-          name: alternative.name,
+          id: alternative.id,
+          namaCalon: alternative.namaCalon,
+          date: alternative.date,
           scores: [roundedValue(score * criterion.weight)],
         })
       }
@@ -43,3 +43,5 @@ const simpleAdditiveWeighting = (criteria, alternatives) => {
     return 0
   })
 }
+
+export default simpleAdditiveWeighting

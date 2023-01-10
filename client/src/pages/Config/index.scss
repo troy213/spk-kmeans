@@ -1,0 +1,90 @@
+@import '../../variables';
+
+.config {
+  flex: 4;
+  padding: 2rem;
+  color: $dark;
+  overflow-x: auto;
+}
+
+.config-title {
+  color: $primary-color-dark;
+  font-size: 1.5rem;
+}
+
+.config-content {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+.config-content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.config-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  & label {
+    color: #555;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+  }
+
+  & input {
+    height: 1.75rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}
+
+.config-content-title {
+  color: $primary-color-dark;
+}
+
+.config-content-table-wrapper {
+  overflow-x: auto;
+}
+
+.config-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  border-radius: 1rem;
+  border: 1px solid #00000017;
+
+  & tr {
+    height: 3rem;
+  }
+
+  & tr:nth-child(even) {
+    background-color: #7e96bf17;
+  }
+
+  & th {
+    padding: 1rem;
+    background-color: $primary-color-light;
+    color: whitesmoke;
+  }
+
+  & td {
+    text-align: center;
+    padding: 1rem;
+  }
+}
+
+.config-btn-wrapper {
+  display: flex;
+  gap: 0.5rem;
+}

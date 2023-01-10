@@ -30,9 +30,7 @@ const CalonPetugas = () => {
           signal: controller.signal,
         })
 
-        if (response?.data?.data?.length > 0) {
-          setIsLoading(false)
-        }
+        setIsLoading(false)
         isMounted && setData(response?.data?.data)
       } catch (err) {
         console.error('Calon Petugas Error: ', err)
@@ -149,7 +147,7 @@ const CalonPetugas = () => {
           </table>
         </div>
       ) : (
-        <p>No data to display</p>
+        <p className='text-center mt-4'>No data to display</p>
       )}
     </div>
   )

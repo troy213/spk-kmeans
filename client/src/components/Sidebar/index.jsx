@@ -6,6 +6,7 @@ import {
   Lock,
   BarChart,
   InputOutlined,
+  Settings,
 } from '@material-ui/icons'
 import { Link, useLocation } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
@@ -31,6 +32,12 @@ const SIDEBAR_NAVIGATION = [
         icon: <BarChart className='sidebar-icon' />,
         link: '/reports',
         name: 'Reports',
+        allowedRoles: [1, 2],
+      },
+      {
+        icon: <Settings className='sidebar-icon' />,
+        link: '/config',
+        name: 'Config',
         allowedRoles: [1, 2],
       },
     ],
