@@ -13,11 +13,8 @@ const useRefreshToken = () => {
       }
     )
 
-    console.log('Response: ', response?.data)
 
     setAuth((prevState) => {
-      console.log('PrevState: ', JSON.stringify(prevState))
-      console.log('New AccessToken: ', response?.data?.accessToken)
       return {
         ...prevState,
         id: response.data.id,

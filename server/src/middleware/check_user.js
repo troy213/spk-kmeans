@@ -5,7 +5,6 @@ const checkUser = (req, res, next) => {
   const sql = 'SELECT password FROM user WHERE id=?'
   db.query(sql, id, (err, result) => {
     if (err) {
-      console.log(err)
       return res.status(500).json({ success: false, message: err })
     }
     if (result.length > 0) {

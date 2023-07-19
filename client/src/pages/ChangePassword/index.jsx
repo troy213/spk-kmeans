@@ -61,7 +61,6 @@ const ChangePassword = () => {
         JSON.stringify({ id: auth?.id, oldPwd, newPwd })
       )
 
-      console.log(response)
       setIsSuccess(true)
       cogoToast.success('Registration Success!')
       // clear input fields
